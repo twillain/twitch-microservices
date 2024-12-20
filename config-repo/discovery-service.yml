@@ -2,8 +2,6 @@ server:
   port: 8761  # Le port par défaut pour Eureka Server
 
 spring:
-  application:
-    name: discovery-service  # Nom de l'application
   cloud:
     eureka:
       client:
