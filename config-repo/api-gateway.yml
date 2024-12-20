@@ -1,6 +1,7 @@
 server:
     port: 8081
-
+order:
+  message: "Ceci est un test !"
 spring:
     application:
         name: api-gateway
