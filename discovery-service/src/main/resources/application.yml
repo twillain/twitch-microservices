@@ -1,0 +1,13 @@
+server:
+  port: 8761  # Le port par défaut pour Eureka Server
+
+spring:
+  application:
+    name: discovery-service  # Nom de l'application
+  cloud:
+    eureka:
+      client:
+        register-with-eureka: false  # Cette application ne s'enregistre pas elle-même auprès de Eureka
+        fetch-registry: false  # Ne pas récupérer les informations d'autres services depuis un autre Eureka Server
+      server:
+        enable-self-preservation: false  # Permet d'éviter les faux positifs lorsque les services sont en panne
