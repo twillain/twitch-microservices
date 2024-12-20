@@ -8,5 +8,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/twillain/twitch-microservices/config-repo.git
+          uri: https://github.com/twillain/twitch-microservices.git
           default-label: main

@@ -3,6 +3,4 @@ spring:
         name: api-gateway
     cloud:
        config:
-         uri: http://localhost:8888
-         profile: dev
-         label: main
+          uri: http://localhost:8888

@@ -1,8 +1,5 @@
 spring:
   application:
     name: discovery-service         # Nom du service
-  cloud:
-    config:
-      uri: http://localhost:8888  # URL du Config Server
-      profile: dev                # (Optionnel) Profil actif
-      label: main                 # (Optionnel) Branche Git
+  config:
+    import: optional:configserver:http://localhost:8888
