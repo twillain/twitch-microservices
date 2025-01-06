@@ -47,14 +47,14 @@ public class UserController {
     // Endpoint pour mettre à jour un utilisateur
     @PutMapping("/{id}")
     public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserEntity user) {
-      UserEntity updatedUser = userService.updateUser(id, user);
+      UserEntity updatedUser = userService.updateUser(user);
         return ResponseEntity.ok(updatedUser);
     }
 
     // Endpoint pour supprimer un utilisateur
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable UserEntity user) {
+        userService.deleteUser(user);
         return ResponseEntity.noContent().build();
     }
 }

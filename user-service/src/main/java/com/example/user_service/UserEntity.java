@@ -5,13 +5,11 @@ import com.example.user_service.utils.Buildable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -22,7 +20,6 @@ public class UserEntity {
     private String name;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(nullable = false)
@@ -37,7 +34,7 @@ public class UserEntity {
     @Column
     private String followedAt;
 
-    @Column
+    @Column(name = "sub_id")
     private Long subId;
 
     @Column

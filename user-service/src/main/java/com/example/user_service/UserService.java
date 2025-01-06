@@ -30,7 +30,7 @@ public class UserService {
     public UserEntity createUser(UserEntity user){
         return userRepository.save(user);
     }
-
+    
     public UserEntity getUserByIdOrCreateEntity(String id, String username){
         UserEntity userEntity = this.getUserByTwitchId(id);
 
@@ -53,12 +53,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserEntity updateUser(Long id, UserEntity user){
-        return userRepository.update(id, user);
+    public UserEntity updateUser(UserEntity user){
+        return userRepository.save(user);
     }
 
-    public void deleteUser(Long id){
-        userRepository.delete(id);
+    public void deleteUser(UserEntity user){
+        userRepository.delete(user);
     }
 
 
