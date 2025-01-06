@@ -1,21 +1,20 @@
 package com.example.user_service;
 
 import com.example.user_service.entities.Role;
-import com.example.user_service.entities.SubEntity;
 import com.example.user_service.utils.Buildable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class UserEntity {
 
-    @Id 
+    @Id
     @Column(nullable = false, unique = true, name = "user_id") //Working with Twitch User Id
     private Long id;
 
@@ -23,6 +22,7 @@ public class UserEntity {
     private String name;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(nullable = false)
@@ -37,9 +37,8 @@ public class UserEntity {
     @Column
     private String followedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "sub_id")
-    private SubEntity sub;
+    @Column
+    private Long subId;
 
     @Column
     private int totalSubGifted;
@@ -57,7 +56,7 @@ public class UserEntity {
         this.counter = builder.counter;
         this.chatColor = builder.chatColor;
         this.followedAt = builder.followedAt;
-        this.sub = builder.sub;
+        this.subId = builder.subId;
         this.totalSubGifted = builder.totalSubGifted;
     }
 
@@ -125,12 +124,12 @@ public class UserEntity {
         this.counter = counter;
     }
 
-    public SubEntity getSub() {
-        return this.sub;
+    public Long getSub() {
+        return this.subId;
     }
 
-    public void setSub(SubEntity sub) {
-        this.sub = sub;
+    public void setSub(Long subId) {
+        this.subId = subId;
     }
 
     public int getTotalSubGifted(){
@@ -151,7 +150,7 @@ public class UserEntity {
         private Integer counter = 0;
         private String chatColor = "";
         private String followedAt = "";
-        private SubEntity sub = null;
+        private Long subId = null;
         private int totalSubGifted = 0;
 
         public Builder withName(String name){
@@ -194,8 +193,8 @@ public class UserEntity {
             return this;
         }
 
-        public Builder withSub(SubEntity sub){
-            this.sub = sub;
+        public Builder withSubId(Long subId){
+            this.subId = subId;
             return this;
         }
 

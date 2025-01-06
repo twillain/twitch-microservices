@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class SubEntity {
     @Id
+    
     private Long id;
     private UserEntity user;
     private String createdAt;
