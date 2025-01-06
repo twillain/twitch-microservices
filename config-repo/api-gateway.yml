@@ -5,8 +5,6 @@ order:
 spring:
     application:
         name: api-gateway
-    main:
-        web-application-type: reactive
     cloud:
       config:
         fail-fast: true
