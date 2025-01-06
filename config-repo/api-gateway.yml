@@ -15,7 +15,7 @@ spring:
           enabled: true
         gateway:
             routes:
-                - id:
+                - id: user-service
                   uri: lb://USER-SERVICE
                   predicates:
                     - Path=/users/**
