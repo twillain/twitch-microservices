@@ -6,12 +6,16 @@ spring:
     username: your-username
     password: your-password
     driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1;
   jpa:
     hibernate:
       ddl-auto: update # Peut être `validate` ou `create-drop` selon vos besoins
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 eureka:
   client:
