@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_REGISTRY = 'twillain'
+        SERVICE_NAME = 'config-server' // Nom du microservice
+        K8S_NAMESPACE = 'microservices' // Namespace Kubernetes
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Vérifie le code source depuis le dépôt
+                git branch: 'main', url: 'https://github.com/twillain/twitch-microservices.git'
+            }
+        }
+        stage('Build Service') {
+            steps {
+                // Compile le microservice en utilisant Maven (en supposant qu'il utilise Maven)
+                sh './mvnw clean package -DskipTests'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                // Crée l'image Docker du microservice
+                sh "docker build -t ${DOCKER_REGISTRY}/${SERVICE_NAME}:latest ${SERVICE_NAME}"
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        // Se connecter à Docker Hub
+                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        // Pousse l'image vers Docker Hub
+                        sh "docker push ${DOCKER_REGISTRY}/${SERVICE_NAME}:latest"
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Applique le fichier de déploiement Kubernetes pour ce microservice
+                    sh "kubectl apply -f k8s/${SERVICE_NAME}-deploylment.yaml -n ${K8S_NAMESPACE}"
+                }
+            }
+        }
+    }
+}
